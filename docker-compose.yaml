@@ -1,0 +1,18 @@
+version: "3.4"
+services:
+  postgresql:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=maciekp
+      - POSTGRES_PASSWORD=qweqwe1!
+      - POSTGRES_DB=portfolio_db
+  dockertest:
+    depends_on:
+      - postgresql
+    build: .
+    command: python DockerProject/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    environment:
+      - PTT_DB_HOST=postgresql
